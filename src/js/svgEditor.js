@@ -4,7 +4,7 @@
  * 
  */
 
-var SvgEditor = function(config){
+var SvgEditor = function(config) {
     
     var config = config || {};
         config.width = config.width || 600;
@@ -15,6 +15,10 @@ var SvgEditor = function(config){
         zoom = 1,
         imgW = 0,
         imgH = 0;
+    config.upload = config.upload || {
+    	url: null,
+    	secureuri: false
+    };
         
     var attr = {
             fill: "#EE0425",
@@ -338,8 +342,8 @@ var SvgEditor = function(config){
         imgW = null;
         imgH = null;
         $.ajaxFileUpload({
-            url:'ajax/doajaxfileupload.php',
-            secureuri:false,
+            url: config.upload.url,
+            secureuri: config.upload.secureuri,
             fileElementId:'fileToUpload',
             dataType:'json',
             success: function(data,status) {
@@ -434,41 +438,7 @@ var SvgEditor = function(config){
             
         });
 
-        console.log(allData)
+        console.log(allData);
     });
 	
 };
-
-
-$(function() {
-    SvgEditor( config = {
-        // img: 'ajax/upload/map_store_01.png',
-        // paths: ['M435,75L437,133L569,119L529,33L480,66L474,91Z', 'M197,17L195,83L258,83L319,45L277,14L225,48Z'],
-        // data : [{
-            // name : 'Leroy',
-            // path : 'M428,119L409,148L345,146L364,118Z',
-            // points : {
-                // x : '387',
-                // y : '120'
-            // }
-        // }, {
-            // name : 'Tesco',
-            // path : 'M464,118L485,139L473,148L413,149L432,119Z',
-            // points : {
-                // x : '447',
-                // y : '123'
-            // }
-        // }, {
-            // name : 'Empik',
-            // path : 'M528,71L566,71L541,108L489,137L467,117L487,89L516,89Z',
-            // points : {
-                // x : '540',
-                // y : '70'
-            // }
-        // }]
-    });
-});
-
-
-
-

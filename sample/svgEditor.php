@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <link href="./css/svgEditor.css?v=7" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="./js/jquery.js"></script>
-        <script type="text/javascript" src="./js/raphael.js"></script>
-        <script type="text/javascript" src="./js/ajaxfileupload.js"></script>
-        <script type="text/javascript" src="./js/svgEditor.js"></script>
+        <link href="../src/css/svgEditor.css?v=7" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../src/js/jquery.js"></script>
+        <script type="text/javascript" src="../src/js/raphael.js"></script>
+        <script type="text/javascript" src="../src/js/ajaxfileupload.js"></script>
+        <script type="text/javascript" src="../src/js/svgEditor.js"></script>
         <title>SVG editor</title>
     </head>
     <body>
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div id="svg-editor-logo">
-                <img src="./img/svg-editor-logo.png" alt="SVG editor" />
+                <img src="../src/img/svg-editor-logo.png" alt="SVG editor" />
             </div>
             <div id="tools-top">
                 <a id="tool-remove" class="btn" href="#">Delete all</a>
@@ -27,7 +27,7 @@
                 <form name="form" action="" method="POST" enctype="multipart/form-data">
                     <input id="fileToUpload" type="file" size="10" name="fileToUpload" class="input" value="upload" />
                     <a id="buttonUpload" class="btn" href="#">Upload</a>
-                    <img id="loading" src="./img/loading.gif" alt="loading" />
+                    <img id="loading" src="../src/img/loading.gif" alt="loading" />
                 </form>
 
             </div>
@@ -75,6 +75,12 @@
             </p>
         </div>
         
-        
+        <script type="text/javascript">
+            SvgEditor(config = {
+        		upload: {
+                    url: './ajax/doajaxfileupload.php'
+        		}
+            });        
+        </script>
     </body>
 </html>
