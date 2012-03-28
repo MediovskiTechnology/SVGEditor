@@ -1,0 +1,332 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
+	margin: 0;
+	padding: 0;
+}
+html, body {
+	height: 100%;
+}
+fieldset, img, iframe {
+	border: 0;
+}
+li {
+	list-style: none;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+q:before, q:after {
+	content: '';
+}
+
+input, button, textarea, select, optgroup, option {
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+}
+a,a:hover{
+    text-decoration: none;
+}
+
+body {
+	background: #f2f2f2;
+	color: #2e3432;
+	font-family: Ubuntu, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	-webkit-transition: all 0.9s ease-in-out;
+	-moz-transition: all 0.9s ease-in-out;
+	-o-transition: all 0.9s ease-in-out;
+	transition: all 0.9s ease-in-out;
+}
+
+#svg-editor{
+    position: relative;
+    width: 100%;
+    background:#ccc;
+    min-height: 100%;
+    height:100%;
+    background: rgb(238,238,238); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(204,204,204,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* IE10+ */
+    background: linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+
+}
+#svg-editor #workpane{
+    background-color: #A0A0A0;
+    border: 3px solid #808080;
+    bottom: 46px;
+    left: 40px;
+    overflow: auto;
+    min-height:200px;
+    min-width: 200px;
+    position: absolute;
+    right: 40px;
+    text-align: center;
+    top: 75px;
+    line-height: 200px;
+    -moz-box-shadow: 0 0 20px #000 inset;
+    -webkit-box-shadow: 0 0 20px #000 inset;
+    box-shadow: 0 0 20px #000 inset;
+    background: -moz-linear-gradient(top,  rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.65)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+    background: linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+    
+}
+#svg-editor-logo{
+    padding: 10px 0 0;
+    text-align: center;
+}
+#svg-editor #canvas{
+    width:600px;
+    height: 300px;
+    margin: 0 auto;
+}
+#svg-editor #paper{
+    background: #fff;
+    width:600px;
+    height: 300px;
+    position: relative;
+    margin: 20px auto 10px;
+    cursor:default;
+    overflow:hidden;
+    -moz-box-shadow: 0 0 20px #000;
+    -webkit-box-shadow: 0 0 20px #000;
+    box-shadow: 0 0 20px #000;
+}
+#svg-editor #paper.tool-draw{
+    cursor:crosshair;
+}
+#svg-editor #paper.tool-zoom{
+    cursor:-moz-zoom-in;
+    cursor:-webkit-zoom-in;
+}
+#svg-editor #paper.tool-point{
+    cursor:pointer;
+}
+
+
+#svg-editor #paper img.uploaded-img{
+    position: absolute;
+    left: 0;
+    top:0;
+    z-index: 0;
+    opacity: 1;
+    
+}
+#svg-editor #paper svg{
+    position: absolute !important;
+    top:0;
+    left:0;
+    z-index: 2;
+}
+#svg-editor-console{
+    position: absolute;
+    bottom: 10px;
+    left:300px;
+    right: 40px;
+    height: 20px;
+    line-height:18px;
+    overflow: hidden;
+    padding:0 10px;
+    background: #fff;
+    border:1px solid #999;
+    display: none;
+}
+#svg-editor #tools-left {
+    background: #d6d6d6;
+    left: 0;
+    padding: 0;
+    margin: 0 3px;
+    position: absolute;
+    top: 75px;
+    width: 30px;
+    z-index: 4;
+    border:1px solid #999;
+    -moz-box-shadow: 2px 2px 2px #000;
+    -webkit-box-shadow: 2px 2px 2px #000;
+    box-shadow: 2px 2px 2px #000;
+}
+#svg-editor .ico{
+    background: transparent url(../img/svg-editor-icons.png) 0 0 no-repeat;
+    vertical-align: middle;
+    display: block;
+    width:24px;
+    height: 21px;
+    margin: 2px;
+    border:1px solid transparent;
+    
+}
+
+#svg-editor #tool-pointer{
+    background-position: 0 -378px;
+}
+#svg-editor #tool-draw{
+    background-position: 0 -47px;
+}
+#svg-editor #tool-point{
+    background-position: 0 -305px;
+}
+#svg-editor #tool-erase{
+    background-position: 0 -235px;
+}
+#svg-editor #tool-zoom{
+    background-position: 0 -499px;
+}
+#svg-editor #tools-left a:hover{
+    opacity: 0.8;
+}
+#svg-editor #tools-left a.active{
+    border:1px solid #000;
+    -moz-box-shadow: 1px 1px 2px #000 inset;
+    -webit-box-shadow: 1px 1px 2px #000 inset;
+    box-shadow: 1px 1px 2px #000 inset;
+}
+#svg-editor #tools-top{
+    background: transparent;
+    left: 40px;
+    padding: 2px;
+    position: absolute;
+    top: 5px;
+    z-index: 4;
+}
+#svg-editor #tools-top a{
+    color:#000;
+    font-size: 12px;
+    text-shadow: 1px 1px 1px #fff;
+    display: inline-block;
+    padding: 3px 7px;
+    margin: 0 5px 5px; 0;
+}
+.btn{
+    background: #eee;
+    color:#000;
+    text-shadow: 1px 1px 1px #fff;
+    display: inline-block;
+    padding: 3px;
+    margin:3px;
+    border:1px solid #555;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 1px 1px 1px #ccc;
+    -webkit-box-shadow: 1px 1px 1px #ccc;
+    box-shadow: 1px 1px 1px #ccc;
+    background: rgb(238,238,238); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(204,204,204,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* IE10+ */
+    background: linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+}
+.btn:hover{
+    background: #eee;
+    -moz-box-shadow: 1px 1px 2px #000 inset;
+    -webkit-box-shadow: 1px 1px 2px #000 inset;
+    box-shadow: 1px 1px 2px #000 inset;
+}
+#svg-editor #tools-top a.disable{
+    opacity: 0.5
+}
+
+#svg-editor #zoom-wrap{
+    bottom: 12px;
+    left: 40px;
+    line-height: 12px;
+    position: absolute;
+    width: 60px;
+}
+#svg-editor #info-box{
+/*    background: #fff;*/
+/*    border: 1px solid #999;*/
+    bottom: 10px;
+    left: 105px;
+    line-height: 11px;
+    height:15px;
+    padding:5px 5px 0;
+    position: absolute;
+    width: 180px;
+}
+#loading{
+    display: none;
+    float: right;
+}
+#dialog-box{
+    background:#fff;
+    border:3px solid #ccc;
+    padding:20px;
+    position: absolute;
+    z-index: 20;
+    left:40%;
+    top:90px;
+    width: 180px;
+    display: none;
+    -moz-box-shadow: 0 0 10px #000;
+    -webkit-box-shadow: 0 0 10px #000;
+    box-shadow: 0 0 10px #000;
+    text-align: center;
+}
+
+#dialog-box p{
+    margin: 0 0 5px;
+    font-size: 14px;
+}
+
+#dialog-box #close-dialog{
+    position: absolute;
+    top:0;
+    right:3px;
+    z-index: 5;
+    padding: 5px;
+    font-size: 14px;
+    cursor:pointer;
+    display: none;
+}
+#dialog-box #temp-path, #dialog-box #temp-point{
+    word-wrap:break-word; 
+    display: none;
+}
+#dialog-box #select-data,#dialog-box #input-data{
+    width:170px;
+    margin: 0 0 10px;
+}
+.center{
+    text-align: center;
+}
+#dialog-box #add-new-name{
+    display: none;
+}
+#svg-editor #top-btn{
+    position: relative;
+    display: block;
+    z-index: 6;
+    margin: 0 auto;
+    width:100px;
+    text-align: center;
+}
+#svg-editor #tool-save{
+    background: transparent url(../img/svg_buttons.png) 0 0 no-repeat;
+    width:27px;
+    height: 24px;
+    padding: 0;
+    vertical-align: text-bottom;
+    display:inline-block;
+}
+#svg-editor #tool-clear{
+    background: transparent url(../img/svg_buttons.png) -44px 0 no-repeat;
+    width:20px;
+    height: 18px;
+    padding: 0;
+    vertical-align: text-bottom;
+    display:inline-block;
+}
