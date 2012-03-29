@@ -51,11 +51,11 @@
                 function setPaperSize(w, h) {
                     var w = w || config.width;
                     var h = h || config.height;
-                    $('#paper').animate({
+                    $this.find('#paper').animate({
                         width : w,
                         height : h
                     }, 200);
-                    $('#svg-editor').animate({
+                    $this.find('#svg-editor').animate({
                         // width : w < 740 ? 740 : w + 120,
                         // height : h < 360 ? 360 : h + 160,
                     }, 200);
@@ -65,43 +65,43 @@
 
                 var R = Raphael("paper", config.width, config.height);
 
-                $('#zoom-select').bind('change', function() {
+                $this.find('#zoom-select').bind('change', function() {
                     zoom = $(this).find('option:selected').attr('value');
 
                     setPaperSize(config.width * zoom, config.height * zoom);
                     R.setSize(config.width * zoom, config.height * zoom)
                     R.setViewBox(0, 0, config.width, config.height, true);
-                    $('.uploaded-img').animate({
+                    $this.find('.uploaded-img').animate({
                         width : imgW * zoom
                     }, 200);
 
                 }).change();
 
-                $('#paper').bind('click', function(e) {
+                $this.find('#paper').bind('click', function(e) {
                     var offset = $(this).offset();
                     var x = parseInt(e.pageX - offset.left, 10);
                     var y = parseInt(e.pageY - offset.top, 10);
-                    if($('#tool-draw').hasClass('active')) {
+                    if($this.find('#tool-draw').hasClass('active')) {
                         drawCircle(parseInt(x / zoom, 10), parseInt(y / zoom, 10));
                         preparePath(parseInt(x / zoom, 10), parseInt(y / zoom, 10));
-                        $('#temp-point').html('');
-                    } else if($('#tool-point').hasClass('active')) {
-                        $('#temp-point').html(parseInt(x / zoom, 10) + '-' + parseInt(y / zoom, 10));
+                        $this.find('#temp-point').html('');
+                    } else if($this.find('#tool-point').hasClass('active')) {
+                        $this.find('#temp-point').html(parseInt(x / zoom, 10) + '-' + parseInt(y / zoom, 10));
 
-                    } else if($('#tool-zoom').hasClass('active')) {
-                        var selected = $('#zoom-select option:selected');
-                        if(zoom < $('#zoom-select option:last').attr('value')) {
-                            $('#zoom-select option').removeAttr('selected');
+                    } else if($this.find('#tool-zoom').hasClass('active')) {
+                        var selected = $this.find('#zoom-select option:selected');
+                        if(zoom < $this.find('#zoom-select option:last').attr('value')) {
+                            $this.find('#zoom-select option').removeAttr('selected');
                             selected.next().attr('selected', 'selected');
                         } else {
-                            $('#zoom-select option').removeAttr('selected');
-                            $('#zoom-select option:first').attr('selected', 'selected');
+                            $this.find('#zoom-select option').removeAttr('selected');
+                            $this.find('#zoom-select option:first').attr('selected', 'selected');
                         }
-                        $('#zoom-select').change();
+                        $this.find('#zoom-select').change();
                     }
 
                 });
-                var path = $('#svg-editor-console').html();
+                var path = $this.find('#svg-editor-console').html();
                 function preparePath(x, y) {
                     path += x + ',' + y + 'L';
                     return createFullPath(path);
@@ -120,7 +120,7 @@
                     return drawPath(fullPath);
                 }
 
-                var shape = $('.shape');
+                var shape = $this.find('.shape');
                 function removePath() {
                     shape.remove();
                 }
@@ -128,10 +128,10 @@
                 function clearAll() {
                     R.remove();
                     R = Raphael("paper", config.width * zoom, config.height * zoom);
-                    $('#zoom-select').change();
+                    $this.find('#zoom-select').change();
                 }
 
-                var dots = $('.dots');
+                var dots = $this.find('.dots');
                 function drawCircle(x, y, r) {
                     var r = r || 2;
                     dots = R.circle(x, y, r).attr(attr).attr({
@@ -155,38 +155,38 @@
                         opacity : 0.6
                     });
                 }(function insertData() {
-                    $('#select-data').html('<option></option>');
+                    $this.find('#select-data').html('<option></option>');
                     for(var i = 0; i < config.data.length; i++) {
-                        $('#select-data').append('<option id="' + config.data[i].points.x + '-' + config.data[i].points.y + '" value="' + config.data[i].path + '">' + config.data[i].name + '</option>');
+                        $this.find('#select-data').append('<option id="' + config.data[i].points.x + '-' + config.data[i].points.y + '" value="' + config.data[i].path + '">' + config.data[i].name + '</option>');
                         config.paths.push(config.data[i].path);
                         var dataPoints = config.data[i].points.x + '-' + config.data[i].points.y;
                         config.points.push(dataPoints);
                     }
                 })();
                 (function addNewName() {
-                    $('#add-new-name').bind('click', function() {
+                    $this.find('#add-new-name').bind('click', function() {
                         var newPath = $.trim($('#temp-path').text());
                         var newPoint = $.trim($('#temp-point').text());
                         var newName = $('#input-data').val();
                         if(newName.length > 0) {
-                            $('#select-data').append('<option id="' + newPoint + '" value="' + newPath + '">' + newName + '</option>');
-                            $('#input-data').val('');
-                            $('#dialog-box').fadeOut(200);
+                            $this.find('#select-data').append('<option id="' + newPoint + '" value="' + newPath + '">' + newName + '</option>');
+                            $this.find('#input-data').val('');
+                            $this.find('#dialog-box').fadeOut(200);
                             savePath();
                         }
                     });
                 })();
 
-                var savedPaths = $('.savedPaths');
+                var savedPaths = $this.find('.savedPaths');
                 function savePath() {
-                    var savedPath = $('#svg-editor-console').text();
+                    var savedPath = $this.find('#svg-editor-console').text();
                     if(savedPath.length > 5) {
                         config.paths.push(savedPath);
                     }
 
                     // console.log('paths:', paths)
 
-                    var savedPoint = $('#temp-point').text();
+                    var savedPoint = $this.find('#temp-point').text();
                     for(var i = 0; i < config.points.length; i++) {
                         if(config.points[i] == savedPoint)
                             config.points.splice(i, 1);
@@ -209,7 +209,7 @@
                         drawPoint(x, y);
                     }
 
-                    $('#zoom-select').change();
+                    $this.find('#zoom-select').change();
 
                     // console.log('paths:', paths)
 
@@ -223,24 +223,24 @@
                                 var thisPoint = el.attr('cx') + '-' + el.attr('cy');
                                 removeElementFromArray(config.points, thisPoint);
                                 removePointFromSelect(thisPoint);
-                                $('#temp-point').html('');
+                                $this.find('#temp-point').html('');
                                 el.remove();
                             } else if($('#tool-point').hasClass('active')) {
-                                $('#temp-path').html(thisPath);
-                                $('#input-data').val('');
-                                $('#dialog-box').fadeIn(200);
+                                $this.find('#temp-path').html(thisPath);
+                                $this.find('#input-data').val('');
+                                $this.find('#dialog-box').fadeIn(200);
                                 assignPathToName();
-                                drawPoint($('#temp-point').html().split('-')[0], $('#temp-point').html().split('-')[1]);
+                                drawPoint($this.find('#temp-point').html().split('-')[0], $this.find('#temp-point').html().split('-')[1]);
                             }
                         }).mouseover(function() {
                             var thisPath = el.attr('path').toString();
-                            $('#select-data option').each(function() {
+                            $this.find('#select-data option').each(function() {
                                 if($(this).attr('value') == thisPath) {
-                                    $('#info-box').html($(this).text());
+                                    $this.find('#info-box').html($(this).text());
                                 }
                             });
                         }).mouseout(function() {
-                            $('#info-box').html('');
+                            $this.find('#info-box').html('');
                         });
                     });
                     //$('#temp-point').html('');
@@ -250,7 +250,7 @@
                 savePath();
 
                 function removePointFromSelect(point) {
-                    $('#select-data option').each(function() {
+                    $this.find('#select-data option').each(function() {
                         if($(this).attr('id') == point) {
                             $(this).attr('id', '');
                         }
@@ -258,7 +258,7 @@
                 }
 
                 function removePathFromSelect(path) {
-                    $('#select-data option').each(function() {
+                    $this.find('#select-data option').each(function() {
                         if($(this).attr('value') == path) {
                             $(this).attr('value', '');
                         }
@@ -266,30 +266,30 @@
                 }
 
 
-                $('#close-dialog').bind('click', function() {
-                    $('#dialog-box').fadeOut(200);
+                $this.find('#close-dialog').bind('click', function() {
+                    $this.find('#dialog-box').fadeOut(200);
                     savePath();
                 });
                 function assignPathToName() {
-                    $('#select-data option').removeAttr('selected');
-                    $('#select-data option:first').attr('selected', 'selected');
-                    $('#select-data option').each(function() {
-                        if($(this).attr('value') == $.trim($('#temp-path').html())) {
+                    $this.find('#select-data option').removeAttr('selected');
+                    $this.find('#select-data option:first').attr('selected', 'selected');
+                    $this.find('#select-data option').each(function() {
+                        if($(this).attr('value') == $.trim($this.find('#temp-path').html())) {
                             $(this).attr('selected', 'selected');
                             var _that = $(this);
                             var t = setTimeout(function() {
-                                _that.attr('id', $('#temp-point').html());
+                                _that.attr('id', $this.find('#temp-point').html());
                             }, 500);
                         }
                     });
 
-                    $('#select-data').bind('change', function() {
-                        $(this).find('option:selected').attr('value', $('#temp-path').html());
-                        $(this).find('option:selected').attr('id', $('#temp-point').html());
-                        $('#dialog-box').hide();
+                    $this.find('#select-data').bind('change', function() {
+                        $(this).find('option:selected').attr('value', $this.find('#temp-path').html());
+                        $(this).find('option:selected').attr('id', $this.find('#temp-point').html());
+                        $this.find('#dialog-box').hide();
                         savePath();
                     }).bind('click', function() {
-                        $('#select-data option').each(function() {
+                        $this.find('#select-data option').each(function() {
                             if($(this).val().length > 0 && $(this).attr('id').length > 0) {
                                 $(this).css({
                                     opacity : .5
@@ -301,7 +301,7 @@
                             }
                         });
                     });
-                    $('#temp-point').html('');
+                    $this.find('#temp-point').html('');
                 }
 
                 function removeElementFromArray(arrayName, arrayElement) {
@@ -329,37 +329,37 @@
                     // nothing
                 };
 
-                $('#tools-left a').bind('click', function() {
-                    $('#tools-left a').removeClass('active');
-                    $(this).addClass('active');
-                    $('#paper').attr('class', $(this).attr('id'));
+                $this.find('#tools-left a').bind('click', function() {
+                    $this.find('#tools-left a').removeClass('active');
+                    $this.find(this).addClass('active');
+                    $this.find('#paper').attr('class', $(this).attr('id'));
                 });
 
-                $('#tool-clear').bind('click', function() {
-                    $('#temp-point').html('');
+                $this.find('#tool-clear').bind('click', function() {
+                    $this.find('#temp-point').html('');
                     clearPath();
                     clearAll();
                     savePath();
                     return false;
                 });
 
-                $('#tool-remove').bind('click', function() {
+                $this.find('#tool-remove').bind('click', function() {
                     clearPath();
                     clearAll();
                     paths = [];
                     points = [];
-                    $('#temp-point').html('');
-                    $('#select-data').html('');
-                    $('.uploaded-img').remove();
+                    $this.find('#temp-point').html('');
+                    $this.find('#select-data').html('');
+                    $this.find('.uploaded-img').remove();
                     return false;
                 });
 
-                $('#tool-save').live('click', function() {
+                $this.find('#tool-save').live('click', function() {
                     savePath();
                     return false;
                 });
                 function ajaxFileUpload() {
-                    $("#loading").ajaxStart(function() {
+                    $this.find("#loading").ajaxStart(function() {
                         $(this).show();
                     }).ajaxComplete(function() {
                         $(this).hide();
@@ -376,14 +376,14 @@
                                 if(data.error != '') {
                                     alert(data.error);
                                 } else {
-                                    $('.uploaded-img').remove();
+                                    $this.find('.uploaded-img').remove();
                                     var img = new Image();
                                     img.onload = function() {
                                         var imgSrc = '<img class="uploaded-img" src="ajax/upload/' + data.msg + '" />'
                                         $('#paper').append(imgSrc);
                                         var t = setTimeout(function() {
-                                            imgW = $('.uploaded-img').width();
-                                            imgH = $('.uploaded-img').height();
+                                            imgW = $this.find('.uploaded-img').width();
+                                            imgH = $this.find('.uploaded-img').height();
                                             config.width = imgW;
                                             config.height = imgH;
                                             savePath();
@@ -403,13 +403,13 @@
                 }
 
                 function insertPhoto() {
-                    $('.uploaded-img').remove();
+                    $this.find('.uploaded-img').remove();
                     var img = new Image();
                     img.onload = function() {
                         var imgSrc = '<img class="uploaded-img" src="' + config.img + '" />'
-                        $('#paper').append(imgSrc);
-                        imgW = $('.uploaded-img').width();
-                        imgH = $('.uploaded-img').height();
+                        $this.find('#paper').append(imgSrc);
+                        imgW = $this.find('.uploaded-img').width();
+                        imgH = $this.find('.uploaded-img').height();
                         config.width = imgW;
                         config.height = imgH;
                         savePath();
@@ -421,33 +421,33 @@
                     insertPhoto();
                 }
 
-                $('#buttonUpload').bind('click', function() {
+                $this.find('#buttonUpload').bind('click', function() {
                     ajaxFileUpload();
                     return false;
                 });
 
-                $('#btn-ok').bind('click', function() {
-                    if($('#input-data').val().length > 0 || $('#select-data option:selected').text().length > 0) {
-                        $('#add-new-name').click();
-                        $('#dialog-box').fadeOut(200);
+                $this.find('#btn-ok').bind('click', function() {
+                    if($this.find('#input-data').val().length > 0 || $this.find('#select-data option:selected').text().length > 0) {
+                        $this.find('#add-new-name').click();
+                        $this.find('#dialog-box').fadeOut(200);
                         savePath();
                     } else {
-                        $('#tool-clear').click();
-                        $('#dialog-box').fadeOut(200);
+                        $this.find('#tool-clear').click();
+                        $this.find('#dialog-box').fadeOut(200);
                     }
 
                     return false;
                 });
 
-                $('#tool-send').bind('click', function() {
+                $this.find('#tool-send').bind('click', function() {
 
                     var allData = {
-                        img : $('.uploaded-img').attr('src'),
+                        img : $this.find('.uploaded-img').attr('src'),
                         paths : config.paths,
                         points : config.points,
                         data : []
                     }
-                    $('#select-data option:not(#select-data option:first)').each(function() {
+                    $this.find('#select-data option:not(#select-data option:first)').each(function() {
                         if($(this).val().length > 2) {
                             var dataObj = {
                                 name : $(this).text(),
@@ -470,4 +470,3 @@
 
     };
 })(jQuery);
-
